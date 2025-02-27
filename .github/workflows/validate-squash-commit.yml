@@ -3,7 +3,9 @@ name: Enforce Conventional Commits on Squash & Merge
 on:
   pull_request:
     types:
-      - closed  # Triggers when a PR is merged or closed
+      - opened
+      - synchronize
+      - closed  # Still needed for post-merge validation
 
 jobs:
   validate-commit:
