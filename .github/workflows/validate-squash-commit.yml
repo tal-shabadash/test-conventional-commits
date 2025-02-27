@@ -12,6 +12,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4  # 👈 This ensures the repo is available
+
       - name: Check if PR was merged
         if: github.event.pull_request.merged == true
         run: echo "PR was merged."
