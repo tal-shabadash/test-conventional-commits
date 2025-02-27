@@ -3,7 +3,7 @@ name: Enforce Conventional Commits Before Merge
 on:
   pull_request:
     # types of PR events to trigger checks
-    types: [opened, reopened, edited, synchronize]
+    types: [opened, reopened, edited, synchronize, closed]
 
 jobs:
   enforce-conventional-commit:
@@ -13,6 +13,11 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: check-for-cc
-        id: check-for-cc
-        uses: agenthunt/conventional-commit-checker-action@v1.0.0
+      - name: Get Final Squashed Commit Message
+        run: |
+          COMMIT_MSG="${{ github.event.pull_request.title }}"
+          echo "Final Commit Message: $COMMIT_MSG"
+          if [[ ! "$COMMIT_MSG" =~ ^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert|BREAKING CHANGE)(\(.+\))?:\  ]]; then
+            echo "❌ Commit message does not follow Conventional Commit format!"
+            exit 1
+          fi
