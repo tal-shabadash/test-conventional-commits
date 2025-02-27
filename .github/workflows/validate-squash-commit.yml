@@ -1,4 +1,4 @@
-name: Enforce Conventional Commits on Squash & Merge
+name: Enforce Conventional Commits on merge
 
 on:
   pull_request:
@@ -8,7 +8,7 @@ on:
       - closed  # Still needed for post-merge validation
 
 jobs:
-  validate-commit:
+  enforce-conventional-commit:
     runs-on: ubuntu-latest
 
     steps:
