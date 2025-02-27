@@ -2,7 +2,8 @@ name: Enforce Conventional Commits Before Merge
 
 on:
   pull_request:
-    types: [ready_for_review, synchronize]
+    branches:
+      - main
 
 jobs:
   enforce-conventional-commit:
