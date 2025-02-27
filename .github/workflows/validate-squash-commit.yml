@@ -7,7 +7,7 @@ on:
       - synchronize
 
 jobs:
-  validate-final-commit:
+  enforce-conventional-commit:
     runs-on: ubuntu-latest
 
     steps:
