@@ -2,9 +2,8 @@ name: Enforce Conventional Commits Before Merge
 
 on:
   pull_request:
-    types:
-      - ready_for_review
-      - synchronize
+    branches: [main]
+    types: [opened, edited, synchronize]
 
 jobs:
   validate-final-commit:
@@ -14,11 +13,6 @@ jobs:
       - name: Checkout Repository
         uses: actions/checkout@v4
 
-      - name: Get the latest commit message
-        run: |
-          COMMIT_MSG=$(git log -1 --pretty=format:%s)
-          echo "Last commit message: $COMMIT_MSG"
-          if [[ ! "$COMMIT_MSG" =~ ^(feat|fix|chore|docs|style|refactor|perf|test|build|ci|revert|BREAKING CHANGE)(\(.+\))?:\  ]]; then
-            echo "❌ Commit message does not follow Conventional Commit format!"
-            exit 1
-          fi
+      - name: check-for-cc
+        id: check-for-cc
+        uses: agenthunt/conventional-commit-checker-action@v1.0.0
