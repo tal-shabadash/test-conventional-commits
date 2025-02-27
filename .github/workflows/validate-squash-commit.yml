@@ -2,11 +2,11 @@ name: Enforce Conventional Commits Before Merge
 
 on:
   pull_request:
-    branches: [main]
-    types: [opened, edited, synchronize]
+    # types of PR events to trigger checks
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
-  validate-final-commit:
+  enforce-conventional-commit:
     runs-on: ubuntu-latest
 
     steps:
