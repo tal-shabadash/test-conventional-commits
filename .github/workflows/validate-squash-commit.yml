@@ -1,26 +1,20 @@
-name: Enforce Conventional Commits on merge
+name: Enforce Conventional Commits Before Merge
 
 on:
   pull_request:
     types:
-      - opened
+      - ready_for_review
       - synchronize
-      - closed  # Still needed for post-merge validation
 
 jobs:
-  enforce-conventional-commit:
+  validate-final-commit:
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout Repository
-        uses: actions/checkout@v4  # 👈 This ensures the repo is available
+        uses: actions/checkout@v4
 
-      - name: Check if PR was merged
-        if: github.event.pull_request.merged == true
-        run: echo "PR was merged."
-
-      - name: Validate Commit Message
-        if: github.event.pull_request.merged == true
+      - name: Get the latest commit message
         run: |
           COMMIT_MSG=$(git log -1 --pretty=format:%s)
           echo "Last commit message: $COMMIT_MSG"
