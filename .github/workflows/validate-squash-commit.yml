@@ -2,8 +2,8 @@ name: Enforce Conventional Commits Before Merge
 
 on:
   pull_request:
-    branches:
-      - main
+    # types of PR events to trigger checks
+    types: [opened, reopened, edited, synchronize]
 
 jobs:
   enforce-conventional-commit:
